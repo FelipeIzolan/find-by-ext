@@ -1,0 +1,22 @@
+{
+  "name": "find-by-ext",
+  "version": "1.0.0",
+  "description": "Find all files in folder's by extname.",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "fs",
+    "path",
+    "find",
+    "search",
+    "folder"
+  ],
+  "type": "module",
+  "author": "Felipe Izolan",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^17.0.34"
+  }
+}
