@@ -32,7 +32,7 @@ function findByExt(dir: string, ext: string | string[]): Array<string> {
     }
 }
 
-function findOnebyExt(dir: string, ext: string): string {
+function findOneByExt(dir: string, ext: string): string {
 	let files = fs.readdirSync(dir)
 	let file = ""
 
@@ -64,5 +64,5 @@ function findOnebyExt(dir: string, ext: string): string {
 
 export {
 	findByExt,
-	findOnebyExt
+	findOneByExt
 }

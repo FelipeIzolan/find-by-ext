@@ -2,7 +2,7 @@
 Find all files in folder's by extname.
 ## Usage
 ```javascript
-import findByExt from "find-by-ext";
+import { findByExt, findOneByExt } from "find-by-ext";
 import path from "path";
 
 // path.resolve() === __dirname
