@@ -62,8 +62,6 @@ function findOnebyExt(dir: string, ext: string): string {
 	}
 }
 
-let result = findOnebyExt("./test", ".css"); console.log(result)
-
 export {
 	findByExt,
 	findOnebyExt
