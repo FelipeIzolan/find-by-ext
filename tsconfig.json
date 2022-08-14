@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ESNext", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "module": "ESNext", /* Specify what module code is generated. */
-    "declaration": true, /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
-    "outDir": "./dist", /* Specify an output folder for all emitted files. */
-    "removeComments": true,                           /* Disable emitting comments. */
-    "esModuleInterop": true, /* Emit additional JavaScript to ease support for importing CommonJS modules. */
-    "forceConsistentCasingInFileNames": true, /* Ensure that casing is correct in imports. */
-    "strict": true, /* Enable all strict type-checking options. */
-    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "target": "ESNext",     
+    "module": "ESNext",
+    "declaration": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true, 
+    "skipLibCheck": true
   },
   "ts-node": { "esm": true }
 }
