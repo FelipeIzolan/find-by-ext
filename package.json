@@ -15,7 +15,9 @@
     "path",
     "find",
     "search",
-    "folder"
+    "folder",
+    "file",
+    "files"
   ],
   "type": "module",
   "author": "Felipe Izolan",
