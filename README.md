@@ -5,7 +5,9 @@ Find all files in folder's by extname.
 import { findByExt, findOneByExt } from "find-by-ext";
 import path from "path";
 
-// path.resolve() === __dirname
-const result = findByExt(path.resolve(), [".js", ".py", ".ts"])
-console.log(result)
+const __dirname = path.resolve()
+const files = findByExt(__dirname, [".js", ".py", ".ts"])
+const file = findOneByExt(__dirname, ".dart")
+
+console.log(files, file)
 ```
