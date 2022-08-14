@@ -1,30 +1,70 @@
 import fs from "fs"
 import path from "path"
 
-function findByExt(folderPath: string, extAllowed: string[]) {
-    let files: string[] = []
-    let folder_files = fs.readdirSync(folderPath)
-    extractFiles(folder_files, folderPath)
+function findByExt(dir: string, ext: string | string[]): Array<string> {
+		let extAllowed  = typeof ext === "string" ? [ext] : ext
+    let files = fs.readdirSync(dir)
+		let list: string[] = []
 
-    return files
+		findFiles(files, dir)
+    return list
 
     // filder = folder or file
-    function extractFiles(filders: string[], dir: string) {
-        filders.forEach((current_filder) => {
-            let filder_path = dir + `/${current_filder}`
+    function findFiles(filders: string[], dir: string) {
+        filders.forEach(currentFilder => {
+            let filderPath = dir + `/${currentFilder}`
+						let filderStat = fs.statSync(filderPath)
 
-            // if filder is file
-            if (fs.statSync(filder_path).isFile()) {
-                const ext = path.extname(filder_path)
-                if (extAllowed.includes(ext)) return files.push(filder_path)
-                else return
+            if (filderStat.isFile()) {
+                const fileExt = path.extname(filderPath)
+
+                if (extAllowed.includes(fileExt)) {
+									let file = path.resolve(filderPath)
+									list.push(file)
+								}
             }
 
-            // if filder is folder
-            let current_folder_files = fs.readdirSync(filder_path)
-            return extractFiles(current_folder_files, filder_path)
+						if (filderStat.isDirectory()) {
+							let files = fs.readdirSync(filderPath)
+							findFiles(files, filderPath)
+						}
         })
     }
 }
 
-export default findByExt
+function findOnebyExt(dir: string, ext: string): string {
+	let files = fs.readdirSync(dir)
+	let file = ""
+
+	findFile(files, dir)
+	return file
+
+  // filder = folder or file
+	function findFile(filders: string[], dir: string) {
+		for(let i = 0; i < filders.length; i++) {
+			let filder = filders[i]
+			let filderPath = dir + `/${filder}`
+			let filderStat = fs.statSync(filderPath)
+
+			if (filderStat.isFile()) {
+    		const fileExt = path.extname(filderPath)
+
+        if (ext === fileExt) {
+					return file = path.resolve(filderPath)
+				}
+			}
+
+			if (filderStat.isDirectory() && file === "") {
+				let files = fs.readdirSync(filderPath)
+				findFile(files, filderPath)
+			}
+		}
+	}
+}
+
+let result = findOnebyExt("./test", ".css"); console.log(result)
+
+export {
+	findByExt,
+	findOnebyExt
+}

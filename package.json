@@ -1,6 +1,6 @@
 {
   "name": "find-by-ext",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Find all files in folder's by extname.",
   "main": "dist/index.js",
   "files": [
