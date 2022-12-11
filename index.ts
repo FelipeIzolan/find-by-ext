@@ -1,68 +1,59 @@
 import fs from "fs"
 import path from "path"
 
-function findByExt(dir: string, ext: string | string[]): Array<string> {
-		let extAllowed  = typeof ext === "string" ? [ext] : ext
-    let files = fs.readdirSync(dir)
-		let list: string[] = []
+// filder = folder or file
+function findFiles(filders: string[], dir: string, ext: string | string[], output: string[], length?: number) {
+  let extAllowed = typeof ext === "string" ? [ext] : ext;
+  
+  filders.forEach(currentFilder => {
+    let filderPath = dir + `/${currentFilder}`;
+		let filderStat = fs.statSync(filderPath);
 
-		findFiles(files, dir)
-    return list
+    if (filderStat.isFile() && output.length !== length) {
+      const fileExt = path.extname(filderPath);
 
-    // filder = folder or file
-    function findFiles(filders: string[], dir: string) {
-        filders.forEach(currentFilder => {
-            let filderPath = dir + `/${currentFilder}`
-						let filderStat = fs.statSync(filderPath)
-
-            if (filderStat.isFile()) {
-                const fileExt = path.extname(filderPath)
-
-                if (extAllowed.includes(fileExt)) {
-									let file = path.resolve(filderPath)
-									list.push(file)
-								}
-            }
-
-						if (filderStat.isDirectory()) {
-							let files = fs.readdirSync(filderPath)
-							findFiles(files, filderPath)
-						}
-        })
+      if (extAllowed.includes(fileExt)) {
+			  let file = path.resolve(filderPath);
+        output.push(file);
+			}
     }
+
+		if (filderStat.isDirectory()) {
+			let files = fs.readdirSync(filderPath);
+			findFiles(files, filderPath, ext, output, length);
+		}
+
+  });
 }
 
-function findOneByExt(dir: string, ext: string): string {
-	let files = fs.readdirSync(dir)
-	let file = ""
+function findByExt(dir: string, ext: string | string[]): Array<string> {
+    let files = fs.readdirSync(dir);
+    let list: Array<string> = [];
 
-	findFile(files, dir)
-	return file
+		findFiles(files, dir, ext, list);
+    return list;
+}
 
-  // filder = folder or file
-	function findFile(filders: string[], dir: string) {
-		for(let i = 0; i < filders.length; i++) {
-			let filder = filders[i]
-			let filderPath = dir + `/${filder}`
-			let filderStat = fs.statSync(filderPath)
+function findOneByExt(dir: string, ext: string | string[]): string {
+	let files = fs.readdirSync(dir);
+	let file: Array<any> = [];
+  
+  findFiles(files, dir, ext, file, 1);
 
-			if (filderStat.isFile()) {
-    		const fileExt = path.extname(filderPath)
+	return file[0];
+}
 
-        if (ext === fileExt) {
-					return file = path.resolve(filderPath)
-				}
-			}
+function findLengthByExt(dir: string, ext: string | string[], length: number) {
+  let files = fs.readdirSync(dir);
+	let list: Array<string> = [];
+  
+  findFiles(files, dir, ext, list, length);
 
-			if (filderStat.isDirectory() && file === "") {
-				let files = fs.readdirSync(filderPath)
-				findFile(files, filderPath)
-			}
-		}
-	}
+  return list;
 }
 
 export {
 	findByExt,
-	findOneByExt
+  findOneByExt,
+  findLengthByExt
 }
