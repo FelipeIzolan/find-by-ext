@@ -12,3 +12,15 @@ const file = findOneByExt(__dirname, ".dart")
 
 console.log(files0, files1, file)
 ```
+
+## Methods
+
+- findByExt(path, ext);
+- findOneByExt(path, ext);
+- findLengthByExt(path, ext, max_length);
+
+```typescript
+path: string
+ext: string | Array<string>
+length: number
+```
