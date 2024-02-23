@@ -2,58 +2,54 @@ import fs from "fs"
 import path from "path"
 
 // filder = folder or file
-function findFiles(filders: string[], dir: string, ext: string | string[], output: string[], length?: number) {
-  let extAllowed = typeof ext === "string" ? [ext] : ext;
+function findFiles(filders: string[], directory: string, list: string[], whitelist: string[], limit?: number) {  
+  for (const filder of filders) {
+    let _path = `${directory}/${filder}`;
+    let stat = fs.statSync(_path);
   
-  filders.forEach(currentFilder => {
-    let filderPath = dir + `/${currentFilder}`;
-		let filderStat = fs.statSync(filderPath);
+    if (stat.isFile() && list.length != limit) {
+      let extname = path.extname(_path);
 
-    if (filderStat.isFile() && output.length !== length) {
-      const fileExt = path.extname(filderPath);
-
-      if (extAllowed.includes(fileExt)) {
-			  let file = path.resolve(filderPath);
-        output.push(file);
-			}
+      if (whitelist.includes(extname)) 
+        list.push(path.resolve(_path));
     }
 
-		if (filderStat.isDirectory()) {
-			let files = fs.readdirSync(filderPath);
-			findFiles(files, filderPath, ext, output, length);
-		}
-
-  });
+    if (stat.isDirectory()) {
+      let files = fs.readdirSync(_path);
+      findFiles(files, _path, list, whitelist, limit);
+    }
+  }
 }
 
-function findByExt(dir: string, ext: string | string[]): Array<string> {
-    let files = fs.readdirSync(dir);
+function findByExt(directory: string, whitelist: string[]): string[] {
+    let files = fs.readdirSync(directory);
     let list: Array<string> = [];
 
-		findFiles(files, dir, ext, list);
+		findFiles(files, directory, list, whitelist);
+    
     return list;
 }
 
-function findOneByExt(dir: string, ext: string | string[]): string {
-	let files = fs.readdirSync(dir);
-	let file: Array<any> = [];
+function findByExtOne(directory: string, whitelist: string[]): string {
+	let files = fs.readdirSync(directory);
+	let file: string[] = [];
   
-  findFiles(files, dir, ext, file, 1);
+  findFiles(files, directory, file, whitelist, 1);
 
 	return file[0];
 }
 
-function findLengthByExt(dir: string, ext: string | string[], length: number) {
-  let files = fs.readdirSync(dir);
-	let list: Array<string> = [];
+function findByExtLimit(directory: string, whitelist: string[], limit: number): string[] {
+  let files = fs.readdirSync(directory);
+	let list: string[] = [];
   
-  findFiles(files, dir, ext, list, length);
+  findFiles(files, directory, list, whitelist, limit);
 
   return list;
 }
 
 export {
 	findByExt,
-  findOneByExt,
-  findLengthByExt
+  findByExtOne,
+  findByExtLimit
 }
