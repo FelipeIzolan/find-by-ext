@@ -1,26 +1,33 @@
-# find-by-ext
-Find all files in folder's by extname.
-## Usage
-```javascript
-import { findByExt, findOneByExt, findLengthByExt } from "find-by-ext";
-import path from "path";
+# 🐀 find-by-ext
 
-const __dirname = path.resolve()
-const files0 = findByExt(__dirname, [".js", ".py", ".ts"])
-const files1 = findLengthByExt(__dirname, [".js", ".py", ".ts"], 5) // find 5
-const file = findOneByExt(__dirname, ".dart")
+<img width=312 src="https://img.freepik.com/premium-vector/vintage-illustration-sitting-fat-rat-oldschool-drawing-fat-mouse-vector-sketch_905000-68.jpg">
 
-console.log(files0, files1, file)
+Find files inside folders by extname.
+
+## 🚀 Installation
+
+```
+npm install find-by-ext
 ```
 
-## Methods
+## 🍋 Usage
 
-- findByExt(path, ext);
-- findOneByExt(path, ext);
-- findLengthByExt(path, ext, max_length);
+```ts
+import { findByExt, findByExtOne, findByExtLimit } from "../index";
 
-```typescript
-path: string
-ext: string | Array<string>
-length: number
+const __dirname = path.resolve();
+
+var scripts = findByExt(__dirname, [".cmd", ".sh", ".ps1", ".bat"]);
+var image = findByExtOne(__dirname, [".png", ".jpg", ".gif", ".webp"]);
+var _4doc = findByExtLimit(__dirname, [".txt", ".md", ".markdown"], 4);
 ```
+
+## 🔖 Reference
+
+- **findByExt(dirname, whitelist)**
+- **findByExtOne(dirname, whitelist)**
+- **findByExtLimit(dirname, whitelist, limit)**
+
+## 📜 License
+
+- [find-by-ext](https://github.com/FelipeIzolan/find-by-ext) - MIT
