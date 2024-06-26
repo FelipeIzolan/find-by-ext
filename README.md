@@ -1,6 +1,7 @@
 # 🐀 find-by-ext
 
-<img width=312 src="https://img.freepik.com/premium-vector/vintage-illustration-sitting-fat-rat-oldschool-drawing-fat-mouse-vector-sketch_905000-68.jpg">
+![Sprite-0001](https://github.com/FelipeIzolan/find-by-ext/assets/80170121/27881251-99b4-43d3-967d-b499d7550d19)
+
 
 Find files inside folders by extname.
 
